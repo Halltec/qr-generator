@@ -9,4 +9,12 @@ class Qrcode extends Model
 {
     /** @use HasFactory<\Database\Factories\QrcodeFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'url',
+        'qr_code',
+        'description',
+    ];
+
 }
