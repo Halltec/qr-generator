@@ -6,6 +6,8 @@ use App\Http\Requests\StoreQrcodeRequest;
 use App\Http\Requests\UpdateQrcodeRequest;
 use App\Models\Qrcode;
 
+use function Pest\Laravel\json;
+
 class QrcodeController extends Controller
 {
     /**
@@ -13,7 +15,8 @@ class QrcodeController extends Controller
      */
     public function index()
     {
-        //
+            $qrcodes = Qrcode::all();
+            return view('qrcode.index', compact('qrcodes'));
     }
 
     /**
@@ -21,7 +24,7 @@ class QrcodeController extends Controller
      */
     public function create()
     {
-        //
+        return view('qrcode.create');
     }
 
     /**
@@ -29,7 +32,9 @@ class QrcodeController extends Controller
      */
     public function store(StoreQrcodeRequest $request)
     {
-        //
+        $validated = $request->validated();
+        Qrcode::create($validated);
+        return redirect()->route('qrcode.index')->with('success', 'QR Code created successfully.');
     }
 
     /**
