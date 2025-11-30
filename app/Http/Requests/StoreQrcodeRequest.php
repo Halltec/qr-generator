@@ -11,7 +11,7 @@ class StoreQrcodeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class StoreQrcodeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:255',
+            'url' => 'nullable|url',
+            'description' => 'nullable|string',
         ];
     }
 }
