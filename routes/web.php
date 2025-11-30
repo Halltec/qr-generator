@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\QrcodeController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
@@ -29,4 +30,9 @@ Route::middleware(['auth'])->group(function () {
             ),
         )
         ->name('two-factor.show');
+
+    Route::get('qrcode', [QrcodeController::class, 'index'])->name('qrcode.index');
+    Route::get('qrcode/create', [QrcodeController::class, 'create'])->name('qrcode.create');
+    Route::post('qrcode', [QrcodeController::class, 'store'])->name('qrcode.store');
+
 });
