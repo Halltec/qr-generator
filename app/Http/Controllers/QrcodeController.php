@@ -15,8 +15,10 @@ class QrcodeController extends Controller
      */
     public function index()
     {
-            $qrcodes = Qrcode::all();
-            return view('qrcode.index', compact('qrcodes'));
+        // Paginate the QR codes (10 per page), newest first
+        $qrcodes = Qrcode::orderBy('created_at', 'desc')->paginate(10);
+
+        return view('qrcode.index', compact('qrcodes'));
     }
 
     /**
