@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreQrcodeRequest;
 use App\Http\Requests\UpdateQrcodeRequest;
 use App\Models\Qrcode;
+use App\Services\QrCodeService;
 
 use function Pest\Laravel\json;
 
@@ -32,10 +33,16 @@ class QrcodeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreQrcodeRequest $request)
+    public function store(StoreQrcodeRequest $request, QrCodeService $qrCodeService)
     {
         $validated = $request->validated();
-        Qrcode::create($validated);
+
+        $dataUri = $qrCodeService->generate($validated['url']);
+
+        Qrcode::create([
+            ...$validated,
+            'qr_code' => $dataUri,
+        ]);
         return redirect()->route('qrcode.index')->with('success', 'QR Code created successfully.');
     }
 
@@ -58,10 +65,17 @@ class QrcodeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateQrcodeRequest $request, Qrcode $qrcode)
+    public function update(UpdateQrcodeRequest $request, Qrcode $qrcode, QrCodeService $qrCodeService)
     {
         $validated = $request->validated();
-        $qrcode->update($validated);
+
+        $dataUri = $qrCodeService->generate($validated['url']);
+
+        $qrcode->update([
+            ...$validated,
+            'qr_code' => $dataUri,
+        ]);
+
         return redirect()->route('qrcode.index')->with('success', 'QR Code updated successfully.');
     }
 
