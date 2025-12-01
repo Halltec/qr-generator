@@ -52,7 +52,7 @@ class QrcodeController extends Controller
      */
     public function edit(Qrcode $qrcode)
     {
-        //
+        return view('qrcode.edit', compact('qrcode'));
     }
 
     /**
@@ -60,7 +60,9 @@ class QrcodeController extends Controller
      */
     public function update(UpdateQrcodeRequest $request, Qrcode $qrcode)
     {
-        //
+        $validated = $request->validated();
+        $qrcode->update($validated);
+        return redirect()->route('qrcode.index')->with('success', 'QR Code updated successfully.');
     }
 
     /**
