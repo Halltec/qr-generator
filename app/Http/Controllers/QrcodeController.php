@@ -52,7 +52,7 @@ class QrcodeController extends Controller
      */
     public function show(Qrcode $qrcode)
     {
-        //
+        return view('qrcode.show', compact('qrcode'));
     }
 
     /**
