@@ -22,7 +22,7 @@
 			<tbody class="bg-white dark:bg-zinc-800 divide-y divide-gray-200 dark:divide-zinc-700">
 				@forelse($qrcodes as $qrcode)
 					<tr>
-						<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">{{ $qrcodes->firstItem() + $loop->index }}</td>
+						<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">{{ $loop->iteration }}</td>
 						<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">{{ $qrcode->name }}</td>
 						<td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 dark:text-blue-400">
 							@if($qrcode->url)
@@ -41,12 +41,10 @@
 				@endforelse
 			</tbody>
 		</table>
-	</div>
-	
-	{{-- Pagination links --}}
-	@if($qrcodes instanceof \Illuminate\Pagination\LengthAwarePaginator)
-		<div class="px-4 py-3 bg-white dark:bg-zinc-800 border-t border-gray-200 dark:border-zinc-700">
-			{{ $qrcodes->links() }}
-		</div>
-	@endif
+    </div>
+    <div class="py-4 flex justify-center">
+        {{ $qrcodes->links() }}
+    </div>
+</div>
+
 </x-layouts.app>
