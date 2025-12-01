@@ -6,6 +6,7 @@ use App\Http\Requests\StoreQrcodeRequest;
 use App\Http\Requests\UpdateQrcodeRequest;
 use App\Models\Qrcode;
 use App\Services\QrCodeService;
+use Illuminate\Support\Str;
 
 use function Pest\Laravel\json;
 
@@ -85,5 +86,20 @@ class QrcodeController extends Controller
     public function destroy(Qrcode $qrcode)
     {
         //
+    }
+
+    public function download(Qrcode $qrcode)
+    {
+       $dataUri = $qrcode->qr_code;
+
+        if (! str_starts_with($dataUri, 'data:image')) {
+            abort(404);
+        }
+
+        $base64 = substr($dataUri, strpos($dataUri, ',') + 1);
+
+        return response(base64_decode($base64))
+            ->header('Content-Type', 'image/png')
+            ->header('Content-Disposition', 'attachment; filename="qr_'.str_replace(" ", "_", Str::lower($qrcode->name)).'.png"');
     }
 }

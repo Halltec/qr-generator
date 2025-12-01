@@ -37,5 +37,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('qrcode/{qrcode}/edit', [QrcodeController::class, 'edit'])->name('qrcode.edit');
     Route::patch('qrcode/{qrcode}', [QrcodeController::class, 'update'])->name('qrcode.update');
     Route::delete('qrcode/{qrcode}', [QrcodeController::class, 'destroy'])->name('qrcode.destroy');
+    Route::get('qrcode/{qrcode}/download', [QrcodeController::class, 'download'])->name('qrcode.download');
 
 });

@@ -19,7 +19,7 @@ class QrCodeService
             data: $data,
             encoding: new Encoding('UTF-8'),
             errorCorrectionLevel: ErrorCorrectionLevel::Low,
-            size: 300,
+            size: 900,
             margin: 10,
             roundBlockSizeMode: RoundBlockSizeMode::Margin,
             foregroundColor: new Color(0, 0, 0),
